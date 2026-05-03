@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nvd-agent
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+          - env: prd
+  template:
+    metadata:
+      name: 'nvd-agent-{{env}}'
+      labels:
+        environment: '{{env}}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/vit0r/nvd-checker.git'
+        targetRevision: HEAD
+        path: chart/nvd-agent
+        helm:
+          valueFiles:
+            - values.yaml
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: 'nvd-agent-{{env}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

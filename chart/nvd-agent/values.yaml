@@ -1,0 +1,51 @@
+replicaCount: 1
+
+image:
+  repository: nvd-checker-agent
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+
+securityContext:
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: false
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
+# Agent configuration
+config:
+  # O URL do MCP Server, assumindo que ele está rodando no mesmo cluster
+  mcpServerUrl: "http://nvd-mcp.nvd-mcp.svc.cluster.local:8000/mcp"
+  agentModel: "gpt-4o"
+
+# External Secret values for OpenAI API Key
+externalSecret:
+  enabled: true
+  refreshInterval: "1h"
+  store:
+    name: "my-secret-store"
+    kind: "ClusterSecretStore"
+  remoteRef:
+    key: "nvd-agent-secrets"
+    property: "OPENAI_API_KEY"

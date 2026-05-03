@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nvd-agent"
+version = "1.0.0"
+description = "Agent for NVD Checker"
+dependencies = [
+    "nvd-checker",
+    "openai-agents>=0.1",
+]
+requires-python = ">=3.10"
+
+[project.scripts]
+nvd-agent = "agent.main:main"
+
+[tool.setuptools.packages.find]
+where = "."
+include = ["agent*"]

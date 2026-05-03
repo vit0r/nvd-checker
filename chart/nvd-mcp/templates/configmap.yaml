@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nvd-mcp.fullname" . }}-config
+  labels:
+    {{- include "nvd-mcp.labels" . | nindent 4 }}
+data:
+  LOG_LEVEL: {{ .Values.config.logLevel | quote }}
+  WORKERS: {{ .Values.config.workers | quote }}
+  CLONE_TIMEOUT: {{ .Values.config.cloneTimeout | quote }}

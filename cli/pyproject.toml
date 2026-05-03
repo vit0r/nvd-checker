@@ -44,6 +44,7 @@ dev = [
 [project.scripts]
 nvd-checker = "nvd_checker.cli:cli"
 
+
 [project.urls]
 Homepage = "https://github.com/vit0r/nvd-checker"
 Repository = "https://github.com/vit0r/nvd-checker"

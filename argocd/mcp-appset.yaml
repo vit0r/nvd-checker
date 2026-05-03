@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nvd-mcp
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+          - env: prd
+  template:
+    metadata:
+      name: 'nvd-mcp-{{env}}'
+      labels:
+        environment: '{{env}}'
+    spec:
+      project: default
+      source:
+        # Substitua caso utilize outra URL ou branch
+        repoURL: 'https://github.com/vit0r/nvd-checker.git'
+        targetRevision: HEAD
+        path: chart/nvd-mcp
+        helm:
+          valueFiles:
+            - values.yaml
+            # Exemplo de uso de values específicos por ambiente:
+            # - values-{{env}}.yaml
+      destination:
+        # Deploy no próprio cluster do ArgoCD
+        server: 'https://kubernetes.default.svc'
+        namespace: 'nvd-mcp-{{env}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nvd-mcp-server"
+version = "1.0.0"
+description = "MCP Server for NVD Checker"
+dependencies = [
+    "nvd-checker",
+    "fastmcp>=0.1",
+    "uvicorn>=0.30",
+]
+requires-python = ">=3.10"
+
+[project.scripts]
+nvd-mcp-server = "mcp_server.server:main"
+
+[tool.setuptools.packages.find]
+where = "."
+include = ["mcp_server*"]
