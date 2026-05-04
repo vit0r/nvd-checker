@@ -8,7 +8,6 @@ spec:
     - list:
         elements:
           - env: dev
-          - env: prd
   template:
     metadata:
       name: 'nvd-agent-{{env}}'

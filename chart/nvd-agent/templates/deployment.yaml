@@ -42,7 +42,7 @@ spec:
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "nvd-agent.fullname" . }}-secret
+                  name: {{ include "nvd-agent.fullname" . }}
                   key: OPENAI_API_KEY
             {{- end }}
           resources:

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "nvd-mcp.fullname" . }}-config
+  name: {{ include "nvd-mcp.fullname" . }}
   labels:
     {{- include "nvd-mcp.labels" . | nindent 4 }}
 data:

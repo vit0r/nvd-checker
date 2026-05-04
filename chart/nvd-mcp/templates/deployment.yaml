@@ -41,11 +41,11 @@ spec:
             - name: NVD_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "nvd-mcp.fullname" . }}-secret
+                  name: {{ include "nvd-mcp.fullname" . }}
                   key: NVD_API_KEY
           envFrom:
             - configMapRef:
-              name: {{ include "nvd-mcp.fullname" . }}-config
+              name: {{ include "nvd-mcp.fullname" . }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
